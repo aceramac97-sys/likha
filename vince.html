@@ -181,7 +181,7 @@
             document.getElementById('mainHeading').style.display = 'none';
             document.getElementById('yesHeading').style.display = 'block';
 
-            // Replace top GIF
+            // Replace top GIF with Abraçourso GIF
             topGif.innerHTML = `
                 <div class="tenor-gif-embed" data-postid="2912093415419701311" data-share-method="host" data-aspect-ratio="1" data-width="100%">
                     <a href="https://tenor.com/view/abra%C3%A7ourso-gif-2912093415419701311">Abraçourso Sticker</a>
@@ -215,81 +215,3 @@
     </script>
 </body>
 </html>
-            <div class="gif-box">
-                <div class="tenor-gif-embed"
-                     data-postid="17237467286723257114"
-                     data-share-method="host"
-                     data-aspect-ratio="1.10177"
-                     data-width="100%">
-                </div>
-            </div>
-
-            <div class="gif-box">
-                <div class="tenor-gif-embed"
-                     data-postid="12782870542608816906"
-                     data-share-method="host"
-                     data-aspect-ratio="1"
-                     data-width="100%">
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-    <!-- YES GIF -->
-    <div id="yesSection">
-        <h2>She Said YES! 💖🎉</h2>
-        <div class="gif-container">
-            <div class="gif-box">
-                <div class="tenor-gif-embed"
-                     data-postid="11092575278240837627"
-                     data-share-method="host"
-                     data-aspect-ratio="1"
-                     data-width="100%">
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        // Move No button randomly
-        function moveNo() {
-            const button = document.getElementById("noBtn");
-            const x = Math.floor(Math.random() * 300) - 150;
-            const y = Math.floor(Math.random() * 200) - 100;
-            button.style.transform = `translate(${x}px, ${y}px)`;
-
-            // Show sad GIFs when hovered
-            document.getElementById("sadSection").style.display = "block";
-            document.getElementById("yesSection").style.display = "none";
-        }
-
-        document.getElementById("noBtn").addEventListener("click", moveNo);
-
-        // Yes button click
-        document.getElementById("yesBtn").addEventListener("click", function() {
-            document.getElementById("yesSection").style.display = "block";
-            document.getElementById("sadSection").style.display = "none";
-
-            // Optional: floating hearts
-            for(let i=0;i<20;i++){
-                setTimeout(createHeart, i*150);
-            }
-        });
-
-        function createHeart() {
-            const heart = document.createElement("div");
-            heart.className = "heart";
-            heart.textContent = "💖";
-            heart.style.left = Math.random()*100 + "vw";
-            document.body.appendChild(heart);
-            setTimeout(()=>heart.remove(),5000);
-        }
-    </script>
-
-    <!-- Tenor Script (only once) -->
-    <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
-
-</body>
-</html>
-
