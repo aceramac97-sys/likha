@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will You Be My Valentine?</title>
+    <style>
+        /* Global styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to bottom, #ffe6f2, #ffb3d9); /* Soft pink gradient */
+            color: #d63384; /* Deep pink for text */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+        }
+
+        /* Container for main content */
+        .container {
+            text-align: center;
+            max-width: 600px;
+            width: 90%; /* Responsive width */
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.8); /* Semi-transparent white */
+            border-radius: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 1;
+        }
+
+        /* GIF container styling - Responsive and fits container perfectly */
+        .gif-container {
+            width: 100%; /* Full width of container for perfect fit */
+            max-width: 300px; /* Max size for larger screens */
+            height: auto; /* Maintain aspect ratio */
+            margin: 0 auto 20px; /* Center and add bottom margin */
+            border-radius: 10px;
+            transition: opacity 0.5s ease; /* Smooth fade transition for visibility changes */
+        }
+
+        /* Heading */
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Buttons container */
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        /* Button base styles */
+        button {
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        /* Yes button initial styles */
+        #yes {
+            background: linear-gradient(45deg, #ff69b4, #ff1493); /* Pink gradient */
+            color: white;
+            box-shadow: 0 4px 8px rgba(255, 20, 147, 0.3);
+        }
+
+        /* No button initial styles */
+        #no {
+            background: linear-gradient(45deg, #ffcccc, #ff9999); /* Light pink */
+            color: #d63384;
+            box-shadow: 0 4px 8px rgba(255, 204, 204, 0.3);
+        }
+
+        /* Hover effects for buttons */
+        #yes:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 12px rgba(255, 20, 147, 0.5);
+        }
+
+        #no:hover {
+            /* No hover effect here, handled by JS */
+        }
+
+        /* Success message */
+        #message {
+            font-size: 1.5rem;
+            margin-top: 20px;
+            display: none;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        /* Floating hearts animation */
+        .heart {
+            position: absolute;
+            font-size: 2rem;
+            color: #ff69b4;
+            animation: float 5s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+        }
+
+        /* Fade in animation for message */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: #d63384;
+            text-align: center;
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            .buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
+            button {
+                padding: 12px 25px;
+                font-size: 1rem;
+            }
+            .gif-container {
+                max-width: 250px; /* Smaller max on mobile for better fit */
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating hearts background (bonus) -->
+    <div id="hearts"></div>
+
+    <div class="container">
+        <!-- Happy GIF: Default display (playful teddy bear) -->
+        <div id="happyGif" class="gif-container">
+            <div class="tenor-gif-embed" data-postid="16264043937215175320" data-share-method="host" data-aspect-ratio="1" data-width="100%">
+                <a href="https://tenor.com/view/bubu-dudu-sseeyall-gif-16264043937215175320">Bubu Dudu Sseeyall Sticker</a> from <a href="https://tenor.com/search/bubu+dudu-stickers">Bubu Dudu Stickers</a>
+            </div>
+        </div>
+        
+        <!-- Sad GIF 1: Hidden initially -->
+        <div id="sadGif1" class="gif-container" style="display: none;">
+            <div class="tenor-gif-embed" data-postid="21866985" data-share-method="host" data-aspect-ratio="1.12281" data-width="100%">
+                <a href="https://tenor.com/view/teddy-bear-gif-21866985">Teddy Bear Sticker</a> from <a href="https://tenor.com/search/teddy-stickers">Teddy Stickers</a>
+            </div>
+        </div>
+        
+        <!-- Sad GIF 2: Hidden initially -->
+        <div id="sadGif2" class="gif-container" style="display: none;">
+            <div class="tenor-gif-embed" data-postid="18519830" data-share-method="host" data-aspect-ratio="1" data-width="100%">
+                <a href="https://tenor.com/view/love-bear-panda-gif-18519830">Love Bear Sticker</a> from <a href="https://tenor.com/search/love-stickers">Love Stickers</a>
+            </div>
+        </div>
+        
+        <!-- Sad GIF 3: Hidden initially -->
+        <div id="sadGif3" class="gif-container" style="display: none;">
+            <div class="tenor-gif-embed" data-postid="13454751" data-share-method="host" data-aspect-ratio="0.986667" data-width="100%">
+                <a href="https://tenor.com/view/bear-teddy-sad-lonely-not-in-the-mood-sleepy-gif-13454751">Bear Teddy Sad Sticker</a> from <a href="https://tenor.com/search/bear+teddy-stickers">Bear Teddy Stickers</a>
+            </div>
+        </div>
+        
+        <!-- Yes GIF: Hidden initially, shown on "Yes" click (celebratory happy GIF) -->
+        <div id="yesGif" class="gif-container" style="display: none;">
+<div class="tenor-gif-embed" data-postid="2912093415419701311" data-share-method="host" data-aspect-ratio="1" data-width="100%"><a href="https://tenor.com/view/abra%C3%A7ourso-gif-2912093415419701311">Abraçourso Sticker</a>from <a href="https://tenor.com/search/abra%C3%A7ourso-stickers">Abraçourso Stickers</a></div> <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
+        </div>
+        
+        <h1>Will You Be My Valentine? 💖</h1>
+        
+        <div class="buttons">
+            <button id="yes">💕 Yes</button>
+            <button id="no">💔 No</button>
+        </div>
+        
+        <div id="message">YAYYY!! I knew you’d say yes! 💖🥰</div>
+    </div>
+
+    <footer>Made with love ❤️</footer>
+
+    <!-- Placeholder audio: Replace with your own cheerful sound file -->
+    <audio id="romanticSound" src="https://www.soundjay.com/misc/sounds/bell-ringing-05.wav" preload="auto"></audio>
+
+    <!-- Tenor embed script (included once) -->
+    <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
+
+    <script>
+        // Get elements
+        const yesBtn = document.getElementById('yes');
+        const noBtn = document.getElementById('no');
+        const message = document.getElementById('message');
+        const heartsContainer = document.getElementById('hearts');
+        const sound = document.getElementById('romanticSound');
+        const container = document.querySelector('.container');
+
+        // GIF containers for cycling
+        const gifContainers = [
+            document.getElementById('happyGif'),
+            document.getElementById('sadGif1'),
+            document.getElementById('sadGif2'),
+            document.getElementById('sadGif3'),
+            document.getElementById('yesGif') // For "Yes" success
+        ];
+
+        // Variables for "No" button behavior
+        let noAttempts = 0;
+        let yesScale = 1; // Initial scale for Yes button
+        let sadIndex = 0; // To cycle through sad GIFs (1-3)
+        let isSadMode = false; // Track if we've switched to sad GIFs
+
+        // Function to move "No" button to random position and change GIF with smooth fade
+        function moveNoButton() {
+            const containerRect = container.getBoundingClientRect();
+            const btnRect = noBtn.getBoundingClientRect();
+
+            // Random position within container, avoiding edges
+            const maxX = containerRect.width - btnRect.width - 20;
+            const maxY = containerRect.height - btnRect.height - 20;
+            const randomX = Math.random() * maxX;
+            const randomY = Math.random() * maxY;
+
+            noBtn.style.position = 'absolute';
+            noBtn.style.left = `${randomX}px`;
+            noBtn.style.top = `${randomY}px`;
+
+            // Shrink "No" button slightly
+            noBtn.style.transform = `scale(${1 - noAttempts * 0.05})`;
+
+            // Enhance "Yes" button
+            noAttempts++;
+            yesScale += 0.1;
+            yesBtn.style.transform = `scale(${yesScale})`;
+            yesBtn.style.boxShadow = `0 0 ${10 + noAttempts * 5}px rgba(255, 20, 147, 0.8)`;
+            yesBtn.style.filter = `brightness(${1 + noAttempts * 0.1})`;
+
+            // Change GIF with smooth fade
+            changeGifSmoothly();
+        }
+
+        // Function for smooth GIF transition by toggling visibility
+        function changeGifSmoothly() {
+            // Fade out current
+            gifContainers.forEach(gif => {
+                if (gif.style.display !== 'none') {
+                    gif.style.opacity = '0';
+                }
+            });
+            setTimeout(() => {
+                // Hide all
+                gifContainers.forEach(gif => gif.style.display = 'none');
+                // Show next sad one (cycle through 1-3)
+                if (!isSadMode) {
+                    gifContainers[1].style.display = 'block'; // First sad
+                    isSadMode = true;
+                } else {
+                    sadIndex = (sadIndex + 1) % 3 + 1; // Cycle 1,2,3
+                    gifContainers[sadIndex].style.display = 'block';
+                }
+                // Fade in
+                gifContainers[sadIndex || 1].style.opacity = '1';
+            }, 250); // Half of transition time
+        }
+
+        // Event listeners for "No" button
+        noBtn.addEventListener('mouseenter', moveNoButton);
+        noBtn.addEventListener('click', moveNoButton);
+
+        // Event listener for "Yes" button
+        yesBtn.addEventListener('click', function() {
+            // Hide buttons
+            document.querySelector('.buttons').style.display = 'none';
+            
+            // Hide all previous GIFs and show the "Yes" success GIF
+            gifContainers.forEach(gif => gif.style.display = 'none');
+            gifContainers[4].style.display = 'block'; // Show yesGif
+            gifContainers[4].style.opacity = '1'; // Ensure it's visible
+            
+            // Show message
+            message.style.display = 'block';
+            
+            // Play sound (optional)
+            sound.play();
+            
+            // Trigger floating hearts
+            for (let i = 0; i < 20; i++) {
+                setTimeout(createHeart, i * 200);
+            }
+        });
+
+        // Function to create floating hearts
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.textContent = '💖';
+            heart.style.left = `${Math.random() * 100}vw`;
+            heart.style.animationDelay = `${Math.random() * 2}s`;
+            heartsContainer.appendChild(heart);
+            
+            // Remove heart after animation
+            setTimeout(() => {
+                heart.remove();
+            }, 5000);
+        }
+
+        // Initial subtle floating hearts (bonus)
+        setInterval(createHeart, 2000);
+    </script>
+</body>
+</html>
