@@ -29,7 +29,6 @@ body {
     border-radius: 20px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     position: relative;
-    z-index: 1;
 }
 
 .gif-container {
@@ -79,12 +78,11 @@ button {
     font-size: 2rem;
     color: #ff69b4;
     animation: float 5s linear infinite;
-    pointer-events: none;
 }
 
 @keyframes float {
-    0% { transform: translateY(100vh) rotate(0deg); opacity:1; }
-    100% { transform: translateY(-100px) rotate(360deg); opacity:0; }
+    0% { transform: translateY(100vh); opacity:1; }
+    100% { transform: translateY(-100px); opacity:0; }
 }
 
 footer {
@@ -121,7 +119,7 @@ footer {
 
 </div>
 
-<footer>Made by mahal❤️</footer>
+<footer>Made with love ❤️</footer>
 
 <script async src="https://tenor.com/embed.js"></script>
 
@@ -135,14 +133,14 @@ const topGif = document.getElementById('topGif');
 let noAttempts = 0;
 let sadIndex = 0;
 
-/* ---- 3 SAD GIFS ---- */
+/* ---- YOUR 3 SAD GIFS ---- */
 const sadGifs = [
-    "16264043937215175320",  // Bubu Dudu Sad
-    "2912093415419701311",   // Abraçourso Sad
-    "16264043937215175320"   // (Repeat or replace with another sad ID if you want)
+    "18519830",
+    "17237467286723257114",
+    "12782870542608816906"
 ];
 
-// Move No button + change sad GIF
+// Move No button + rotate sad GIF
 function moveNoButton() {
 
     const containerRect = container.getBoundingClientRect();
@@ -159,7 +157,7 @@ function moveNoButton() {
     noAttempts++;
     yesBtn.style.transform = `scale(${1 + noAttempts * 0.1})`;
 
-    // Rotate sad GIF
+    // Change to next sad GIF
     topGif.innerHTML = `
         <div class="tenor-gif-embed"
             data-postid="${sadGifs[sadIndex]}"
