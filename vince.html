@@ -7,10 +7,11 @@
 
 <style>
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Arial', sans-serif;
     background: linear-gradient(to bottom, #ffe6f2, #ffb3d9);
     color: #d63384;
     margin: 0;
+    padding: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -24,19 +25,21 @@ body {
     max-width: 600px;
     width: 90%;
     padding: 20px;
-    background: rgba(255,255,255,0.85);
+    background: rgba(255, 255, 255, 0.8);
     border-radius: 20px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     position: relative;
+    z-index: 1;
 }
 
 .gif-container {
+    width: 100%;
     max-width: 300px;
     margin: 0 auto 20px;
 }
 
 h1 {
-    font-size: 2rem;
+    font-size: 2.5rem;
     margin-bottom: 30px;
 }
 
@@ -44,24 +47,26 @@ h1 {
     display: flex;
     justify-content: center;
     gap: 20px;
+    margin-bottom: 20px;
 }
 
 button {
     padding: 15px 30px;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     border: none;
     border-radius: 50px;
     cursor: pointer;
-    transition: 0.3s;
+    transition: all 0.3s ease;
+    position: relative;
 }
 
 #yes {
-    background: linear-gradient(45deg,#ff69b4,#ff1493);
+    background: linear-gradient(45deg, #ff69b4, #ff1493);
     color: white;
 }
 
 #no {
-    background: linear-gradient(45deg,#ffcccc,#ff9999);
+    background: linear-gradient(45deg, #ffcccc, #ff9999);
     color: #d63384;
 }
 
@@ -72,12 +77,20 @@ button {
 .heart {
     position: absolute;
     font-size: 2rem;
+    color: #ff69b4;
     animation: float 5s linear infinite;
+    pointer-events: none;
 }
 
 @keyframes float {
-    0% { transform: translateY(100vh); opacity:1; }
-    100% { transform: translateY(-100px); opacity:0; }
+    0% { transform: translateY(100vh) rotate(0deg); opacity:1; }
+    100% { transform: translateY(-100px) rotate(360deg); opacity:0; }
+}
+
+footer {
+    margin-top: 20px;
+    font-size: 0.9rem;
+    text-align: center;
 }
 </style>
 </head>
@@ -88,45 +101,45 @@ button {
 
 <div class="container">
 
-    <!-- DEFAULT GIF (Giving Flowers) -->
-    <div id="topGif" class="gif-container">
-        <div class="tenor-gif-embed"
-             data-postid="11147624609714648432"
-             data-share-method="host"
-             data-aspect-ratio="0.862745"
-             data-width="100%">
-        </div>
+<!-- DEFAULT GIF (Giving Flowers) -->
+<div id="topGif" class="gif-container">
+    <div class="tenor-gif-embed"
+        data-postid="11147624609714648432"
+        data-share-method="host"
+        data-aspect-ratio="0.862745"
+        data-width="100%">
     </div>
+</div>
 
-    <h1 id="mainHeading">Will You Be My Valentine? 💖</h1>
-    <h1 id="yesHeading" style="display:none;">I knew you’d say yes! 💕🥰</h1>
+<h1 id="mainHeading">Will You Be My Valentine? 💖</h1>
+<h1 id="yesHeading" style="display:none;">I knew you’d say yes! 💖🥰</h1>
 
-    <div class="buttons">
-        <button id="yes">💕 Yes</button>
-        <button id="no">💔 No</button>
-    </div>
+<div class="buttons">
+    <button id="yes">💕 Yes</button>
+    <button id="no">💔 No</button>
+</div>
 
 </div>
 
-<footer>Made with love ❤️</footer>
+<footer>Made by mahal❤️</footer>
 
 <script async src="https://tenor.com/embed.js"></script>
 
 <script>
 const yesBtn = document.getElementById('yes');
 const noBtn = document.getElementById('no');
+const heartsContainer = document.getElementById('hearts');
 const container = document.querySelector('.container');
 const topGif = document.getElementById('topGif');
-const heartsContainer = document.getElementById('hearts');
 
 let noAttempts = 0;
 let sadIndex = 0;
 
-/* --- 3 SAD GIFS --- */
+/* ---- 3 SAD GIFS ---- */
 const sadGifs = [
-    "16264043937215175320",  // Sad GIF 1
-    "2912093415419701311",   // Sad GIF 2
-    "11092575278240837627"   // Sad GIF 3 (you can replace with another sad one)
+    "16264043937215175320",  // Bubu Dudu Sad
+    "2912093415419701311",   // Abraçourso Sad
+    "16264043937215175320"   // (Repeat or replace with another sad ID if you want)
 ];
 
 // Move No button + change sad GIF
@@ -142,6 +155,7 @@ function moveNoButton() {
     noBtn.style.left = Math.random() * maxX + "px";
     noBtn.style.top = Math.random() * maxY + "px";
 
+    noBtn.style.transform = `scale(${1 - noAttempts * 0.05})`;
     noAttempts++;
     yesBtn.style.transform = `scale(${1 + noAttempts * 0.1})`;
 
@@ -164,13 +178,13 @@ noBtn.addEventListener('mouseenter', moveNoButton);
 noBtn.addEventListener('click', moveNoButton);
 
 // YES BUTTON
-yesBtn.addEventListener('click', function(){
+yesBtn.addEventListener('click', function() {
 
     document.querySelector('.buttons').style.display = 'none';
     document.getElementById('mainHeading').style.display = 'none';
     document.getElementById('yesHeading').style.display = 'block';
 
-    // Thank You GIF
+    // THANK YOU GIF
     topGif.innerHTML = `
         <div class="tenor-gif-embed"
             data-postid="11092575278240837627"
@@ -182,15 +196,15 @@ yesBtn.addEventListener('click', function(){
 
     if (window.Tenor) window.Tenor.initEmbeds();
 
-    for(let i=0;i<25;i++){
-        setTimeout(createHeart,i*150);
+    for(let i=0;i<20;i++){
+        setTimeout(createHeart, i*200);
     }
 });
 
-function createHeart(){
-    const heart = document.createElement("div");
-    heart.className = "heart";
-    heart.textContent = "💖";
+function createHeart() {
+    const heart = document.createElement('div');
+    heart.className = 'heart';
+    heart.textContent = '💖';
     heart.style.left = Math.random()*100 + "vw";
     heartsContainer.appendChild(heart);
     setTimeout(()=>heart.remove(),5000);
