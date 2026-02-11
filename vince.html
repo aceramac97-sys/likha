@@ -1,202 +1,183 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Will You Be My Valentine?</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will You Be My Valentine?</title>
 
-<style>
-body {
-    font-family: Arial, sans-serif;
-    background: linear-gradient(to bottom, #ffe6f2, #ffb3d9);
-    color: #d63384;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    overflow-x: hidden;
-}
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom, #ffe6f2, #ffb3d9);
+            color: #d63384;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+            overflow-x: hidden;
+        }
 
-.container {
-    text-align: center;
-    max-width: 600px;
-    width: 90%;
-    padding: 20px;
-    background: rgba(255,255,255,0.85);
-    border-radius: 20px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    position: relative;
-}
+        h1 {
+            margin-top: 20px;
+        }
 
-.gif-container {
-    width: 100%;
-    max-width: 300px;
-    margin: 0 auto 20px;
-    min-height: 260px;
-}
+        .gif-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 20px;
+        }
 
-h1 {
-    font-size: 2.3rem;
-    margin-bottom: 30px;
-}
+        .gif-box {
+            width: 220px;
+        }
 
-.buttons {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-}
+        button {
+            padding: 12px 25px;
+            font-size: 18px;
+            margin: 15px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
 
-button {
-    padding: 15px 30px;
-    font-size: 1.1rem;
-    border: none;
-    border-radius: 50px;
-    cursor: pointer;
-    transition: 0.3s;
-    position: relative;
-}
+        #yesBtn {
+            background-color: #ff4d6d;
+            color: white;
+        }
 
-#yes {
-    background: linear-gradient(45deg,#ff69b4,#ff1493);
-    color: white;
-}
+        #noBtn {
+            background-color: gray;
+            color: white;
+            position: relative;
+        }
 
-#no {
-    background: linear-gradient(45deg,#ffcccc,#ff9999);
-    color: #d63384;
-}
+        #sadSection, #yesSection {
+            display: none;
+            margin-top: 40px;
+        }
 
-#yes:hover {
-    transform: scale(1.1);
-}
+        .heart {
+            position: absolute;
+            font-size: 2rem;
+            animation: float 5s linear infinite;
+        }
 
-.heart {
-    position: absolute;
-    font-size: 2rem;
-    animation: float 5s linear infinite;
-}
-
-@keyframes float {
-    0% { transform: translateY(100vh); opacity:1; }
-    100% { transform: translateY(-100px); opacity:0; }
-}
-</style>
+        @keyframes float {
+            0% { transform: translateY(100vh); opacity:1; }
+            100% { transform: translateY(-100px); opacity:0; }
+        }
+    </style>
 </head>
-
 <body>
 
-<div id="hearts"></div>
+    <h1>For You 💐</h1>
 
-<div class="container">
-
-<!-- DEFAULT GIF (Giving Flowers) -->
-<div id="topGif" class="gif-container">
-    <div class="tenor-gif-embed"
-        data-postid="11147624609714648432"
-        data-share-method="host"
-        data-aspect-ratio="0.862745"
-        data-width="100%">
-    </div>
-</div>
-
-<h1 id="mainHeading">Will You Be My Valentine? 💖</h1>
-<h1 id="yesHeading" style="display:none;">I knew you’d say yes! 💕🥰</h1>
-
-<div class="buttons">
-    <button id="yes">💕 Yes</button>
-    <button id="no">💔 No</button>
-</div>
-
-</div>
-
-<footer>Made with love ❤️</footer>
-
-<script src="https://tenor.com/embed.js"></script>
-
-<script>
-const yesBtn = document.getElementById('yes');
-const noBtn = document.getElementById('no');
-const topGif = document.getElementById('topGif');
-const container = document.querySelector('.container');
-const heartsContainer = document.getElementById('hearts');
-
-let noAttempts = 0;
-let sadIndex = 0;
-
-/* FIXED SAD GIFS WITH CORRECT RATIOS */
-const sadGifs = [
-    { id: "18519830", ratio: "1" },
-    { id: "17237467286723257114", ratio: "1.10177" },
-    { id: "12782870542608816906", ratio: "1" }
-];
-
-function renderGif(id, ratio) {
-    topGif.innerHTML = `
-        <div class="tenor-gif-embed"
-            data-postid="${id}"
-            data-share-method="host"
-            data-aspect-ratio="${ratio}"
-            data-width="100%">
+    <!-- Giving Flower Girl GIF -->
+    <div class="gif-container">
+        <div class="gif-box">
+            <div class="tenor-gif-embed"
+                 data-postid="11147624609714648432"
+                 data-share-method="host"
+                 data-aspect-ratio="0.862745"
+                 data-width="100%">
+            </div>
         </div>
-    `;
-    if (window.Tenor) {
-        window.Tenor.initEmbeds();
-    }
-}
+    </div>
 
-// Move No button + rotate sad GIF
-function moveNoButton() {
+    <h1>Will you be mine? 💖</h1>
 
-    const containerRect = container.getBoundingClientRect();
-    const btnRect = noBtn.getBoundingClientRect();
+    <button id="yesBtn">Yes 💕</button>
+    <button id="noBtn">No 😢</button>
 
-    const maxX = containerRect.width - btnRect.width - 20;
-    const maxY = containerRect.height - btnRect.height - 20;
+    <!-- Sad GIFs -->
+    <div id="sadSection">
+        <h2>Please don't say no 😭</h2>
+        <div class="gif-container">
 
-    noBtn.style.position = 'absolute';
-    noBtn.style.left = Math.random() * maxX + "px";
-    noBtn.style.top = Math.random() * maxY + "px";
+            <div class="gif-box">
+                <div class="tenor-gif-embed"
+                     data-postid="18519830"
+                     data-share-method="host"
+                     data-aspect-ratio="1"
+                     data-width="100%">
+                </div>
+            </div>
 
-    noAttempts++;
-    yesBtn.style.transform = `scale(${1 + noAttempts * 0.1})`;
+            <div class="gif-box">
+                <div class="tenor-gif-embed"
+                     data-postid="17237467286723257114"
+                     data-share-method="host"
+                     data-aspect-ratio="1.10177"
+                     data-width="100%">
+                </div>
+            </div>
 
-    const current = sadGifs[sadIndex];
-    renderGif(current.id, current.ratio);
+            <div class="gif-box">
+                <div class="tenor-gif-embed"
+                     data-postid="12782870542608816906"
+                     data-share-method="host"
+                     data-aspect-ratio="1"
+                     data-width="100%">
+                </div>
+            </div>
 
-    sadIndex = (sadIndex + 1) % sadGifs.length;
-}
+        </div>
+    </div>
 
-noBtn.addEventListener('mouseenter', moveNoButton);
-noBtn.addEventListener('click', moveNoButton);
+    <!-- YES GIF -->
+    <div id="yesSection">
+        <h2>She Said YES! 💖🎉</h2>
+        <div class="gif-container">
+            <div class="gif-box">
+                <div class="tenor-gif-embed"
+                     data-postid="11092575278240837627"
+                     data-share-method="host"
+                     data-aspect-ratio="1"
+                     data-width="100%">
+                </div>
+            </div>
+        </div>
+    </div>
 
-// YES BUTTON
-yesBtn.addEventListener('click', function() {
+    <script>
+        // Move No button randomly
+        function moveNo() {
+            const button = document.getElementById("noBtn");
+            const x = Math.floor(Math.random() * 300) - 150;
+            const y = Math.floor(Math.random() * 200) - 100;
+            button.style.transform = `translate(${x}px, ${y}px)`;
 
-    document.querySelector('.buttons').style.display = 'none';
-    document.getElementById('mainHeading').style.display = 'none';
-    document.getElementById('yesHeading').style.display = 'block';
+            // Show sad GIFs when hovered
+            document.getElementById("sadSection").style.display = "block";
+            document.getElementById("yesSection").style.display = "none";
+        }
 
-    // THANK YOU GIF (Correct Ratio)
-    renderGif("11092575278240837627", "1");
+        document.getElementById("noBtn").addEventListener("click", moveNo);
 
-    for(let i=0;i<20;i++){
-        setTimeout(createHeart, i*150);
-    }
-});
+        // Yes button click
+        document.getElementById("yesBtn").addEventListener("click", function() {
+            document.getElementById("yesSection").style.display = "block";
+            document.getElementById("sadSection").style.display = "none";
 
-function createHeart(){
-    const heart = document.createElement("div");
-    heart.className = "heart";
-    heart.textContent = "💖";
-    heart.style.left = Math.random()*100 + "vw";
-    heartsContainer.appendChild(heart);
-    setTimeout(()=>heart.remove(),5000);
-}
+            // Optional: floating hearts
+            for(let i=0;i<20;i++){
+                setTimeout(createHeart, i*150);
+            }
+        });
 
-setInterval(createHeart,2000);
-</script>
+        function createHeart() {
+            const heart = document.createElement("div");
+            heart.className = "heart";
+            heart.textContent = "💖";
+            heart.style.left = Math.random()*100 + "vw";
+            document.body.appendChild(heart);
+            setTimeout(()=>heart.remove(),5000);
+        }
+    </script>
+
+    <!-- Tenor Script (only once) -->
+    <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
 
 </body>
 </html>
