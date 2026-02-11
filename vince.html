@@ -153,21 +153,31 @@
 
         // Move No button randomly
         function moveNoButton() {
-            const containerRect = container.getBoundingClientRect();
-            const btnRect = noBtn.getBoundingClientRect();
-            const maxX = containerRect.width - btnRect.width - 20;
-            const maxY = containerRect.height - btnRect.height - 20;
-            const randomX = Math.random() * maxX;
-            const randomY = Math.random() * maxY;
+    // Move the button as before
+    const containerRect = container.getBoundingClientRect();
+    const btnRect = noBtn.getBoundingClientRect();
+    const maxX = containerRect.width - btnRect.width - 20;
+    const maxY = containerRect.height - btnRect.height - 20;
+    const randomX = Math.random() * maxX;
+    const randomY = Math.random() * maxY;
 
-            noBtn.style.position = 'absolute';
-            noBtn.style.left = `${randomX}px`;
-            noBtn.style.top = `${randomY}px`;
+    noBtn.style.position = 'absolute';
+    noBtn.style.left = `${randomX}px`;
+    noBtn.style.top = `${randomY}px`;
 
-            noBtn.style.transform = `scale(${1 - noAttempts * 0.05})`;
-            noAttempts++;
-            yesBtn.style.transform = `scale(${1 + noAttempts * 0.1})`;
-        }
+    noBtn.style.transform = `scale(${1 - noAttempts * 0.05})`;
+    noAttempts++;
+    yesBtn.style.transform = `scale(${1 + noAttempts * 0.1})`;
+
+    // Replace the top GIF with the three sad GIFs
+    topGif.innerHTML = sadGifsHTML;
+
+    // Re-run Tenor script so GIFs render
+    const script = document.createElement('script');
+    script.src = 'https://tenor.com/embed.js';
+    script.async = true;
+    document.body.appendChild(script);
+}
 
         noBtn.addEventListener('mouseenter', moveNoButton);
         noBtn.addEventListener('click', moveNoButton);
@@ -200,6 +210,22 @@
                 setTimeout(createHeart, i*200);
             }
         });
+        const sadGifsHTML = `
+  <div class="gif-container">
+    <div class="tenor-gif-embed" data-postid="18519830" data-share-method="host" data-aspect-ratio="1" data-width="100%">
+      <a href="https://tenor.com/view/love-bear-panda-gif-18519830">Love Bear Sticker</a>
+      from <a href="https://tenor.com/search/love-stickers">Love Stickers</a>
+    </div>
+    <div class="tenor-gif-embed" data-postid="17237467286723257114" data-share-method="host" data-aspect-ratio="1.10177" data-width="100%">
+      <a href="https://tenor.com/view/milk-and-mocha-gif-17237467286723257114">Milk And Mocha GIF</a>
+      from <a href="https://tenor.com/search/milk+and+mocha-gifs">Milk And Mocha GIFs</a>
+    </div>
+    <div class="tenor-gif-embed" data-postid="12782870542608816906" data-share-method="host" data-aspect-ratio="1" data-width="100%">
+      <a href="https://tenor.com/view/bubu-bubu-dudu-bubbu-bear-bhalu-gif-12782870542608816906">Bubu Bubu Dudu Sticker</a>
+      from <a href="https://tenor.com/search/bubu-stickers">Bubu Stickers</a>
+    </div>
+  </div>
+`;
 
         function createHeart() {
             const heart = document.createElement('div');
@@ -215,4 +241,5 @@
     </script>
 </body>
 </html>
+
 
